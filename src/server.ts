@@ -25,7 +25,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/cart", cartRoutes);
 app.use("/admin", adminRoutes); // Add admin routes
-app.use('/products', productRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running...");
