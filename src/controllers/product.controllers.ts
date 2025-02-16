@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import Product from "../models/product.model"; // Import your Product model
+import Product from "../models/product.model";
 
-// ✅ Get all products
 export const getProducts = async (req: Request, res: Response) => {
     try {
       const products = await Product.find(); 
@@ -13,7 +12,6 @@ export const getProducts = async (req: Request, res: Response) => {
   };
   
 
-// ✅ Get a single product by ID
 export const getProductById = async (req: Request, res: Response) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -28,12 +26,11 @@ export const getProductById = async (req: Request, res: Response) => {
   }
 };
 
-// ✅ Create a new product
 export const createProduct = async (req: Request, res: Response) => {
     try {
-      // Extract data from request body
+
       const {
-        name, // Change `title` to `name` to match JSON data
+        name,
         category,
         image,
         brand,
@@ -52,12 +49,10 @@ export const createProduct = async (req: Request, res: Response) => {
         reviews,
       } = req.body;
   
-      // Basic validation
       if (!name || !category || !price || !sku) {
         return res.status(400).json({ error: "Missing required fields" });
       }
-  
-      // Create a new product instance
+
       const newProduct = new Product({
         name,
         category,
@@ -77,8 +72,7 @@ export const createProduct = async (req: Request, res: Response) => {
         nutritionalInfo,
         reviews,
       });
-  
-      // Save product to database
+
       await newProduct.save();
   
       res.status(201).json({ message: "Product created successfully", product: newProduct });
@@ -88,14 +82,12 @@ export const createProduct = async (req: Request, res: Response) => {
     }
   };
 
-
-// ✅ Update a product by ID
 export const updateProduct = async (req: Request, res: Response) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
-      req.body, // Update with request data
-      { new: true, runValidators: true } // Return updated product & validate
+      req.body, 
+      { new: true, runValidators: true }
     );
 
     if (!updatedProduct) {
@@ -108,7 +100,6 @@ export const updateProduct = async (req: Request, res: Response) => {
   }
 };
 
-// ✅ Delete a product by ID
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);

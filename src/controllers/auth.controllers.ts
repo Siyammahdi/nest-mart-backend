@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model";
 
-// ✅ Register User
+// Register User
 export const signup = async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, email, password } = req.body;
@@ -30,7 +30,6 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-// ✅ Login User
 export const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
@@ -45,24 +44,28 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       res.status(400).json({ error: "Invalid credentials" });
       return;
     }
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       res.status(400).json({ error: "Invalid credentials" });
       return;
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET as string,
+      { expiresIn: "1d" }
+    );
 
-    res.json({ message: "Login successful", token });
+    res.json({
+      message: "Login successful",
+      token,
+      role: user.role,
+    });
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 
 export const createAdmin = async (req: Request, res: Response): Promise<void> => {
     try {

@@ -4,7 +4,7 @@ import User from "../models/user.model";
 
 export interface AuthRequest extends Request {
   userId?: string;
-  userRole?: string; // Add userRole to the request object
+  userRole?: string;
 }
 
 export const authenticateUser = async (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -25,7 +25,7 @@ export const authenticateUser = async (req: AuthRequest, res: Response, next: Ne
     }
 
     req.userId = decoded.userId;
-    req.userRole = user.role; // Add user role to the request object
+    req.userRole = user.role;
     next();
   } catch (error) {
     res.status(401).json({ error: "Unauthorized - Invalid token" });

@@ -9,7 +9,6 @@ import {
 
 const router = express.Router();
 
-// Properly handle async functions with `express.Router`
 router.get("/", async (req, res, next) => {
   try {
     await getProducts(req, res);

@@ -5,7 +5,7 @@ import cors from "cors";
 import productRoutes from "./routes/product.routes";
 import cartRoutes from "./routes/cart.routes";
 import authRoutes from "./routes/auth.routes";
-import adminRoutes from "./routes/admin.routes"; // Import admin routes
+import adminRoutes from "./routes/admin.routes";
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ mongoose
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/cart", cartRoutes);
-app.use("/admin", adminRoutes); // Add admin routes
+app.use("/admin", adminRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running...");

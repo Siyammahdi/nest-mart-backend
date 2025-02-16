@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/login", login);
-router.post("/create-admin", createAdmin); // Add this route
+router.post("/create-admin", createAdmin);
 
-router.get("/me", authenticateUser, getUserDetails); // Add this line
+router.get("/me", authenticateUser, getUserDetails); 
 
 export default router;

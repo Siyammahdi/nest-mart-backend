@@ -91,7 +91,6 @@ export const updateCartItem = async (req: Request, res: Response): Promise<void>
   }
 };
 
-// 🛒 Remove an Item from Cart
 export const removeFromCart = async (req: Request, res: Response): Promise<void> => {
   try {
     const { userId } = req.body;
@@ -120,7 +119,6 @@ export const removeFromCart = async (req: Request, res: Response): Promise<void>
   }
 };
 
-// 🛒 Clear Cart
 export const clearCart = async (req: Request, res: Response): Promise<void> => {
   try {
     const { userId } = req.body;
